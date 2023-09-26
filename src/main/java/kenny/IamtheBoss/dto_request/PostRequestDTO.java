@@ -10,5 +10,5 @@ public class PostRequestDTO {
     private String title;
     private String jobDescription;
     private Long categoryId;
-    private Long systemUserId;
+//    private Long systemUserId;
 }

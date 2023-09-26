@@ -1,7 +1,6 @@
 package kenny.IamtheBoss.controller;
 
 import com.google.firebase.auth.FirebaseAuthException;
-
 import jakarta.validation.Valid;
 import kenny.IamtheBoss.dto_factory.SystemUserFactory;
 import kenny.IamtheBoss.dto_request.SignUpRequestDTO;

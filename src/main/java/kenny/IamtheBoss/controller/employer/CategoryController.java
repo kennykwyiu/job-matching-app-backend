@@ -1,4 +1,4 @@
-package kenny.IamtheBoss.controller;
+package kenny.IamtheBoss.controller.employer;
 
 import jakarta.validation.Valid;
 import kenny.IamtheBoss.dto_factory.CategoryFactory;

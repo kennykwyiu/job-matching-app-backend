@@ -14,5 +14,6 @@ public class CommentResponseDTO {
     private String fromUserName;
     private String toUserName;
     private String jobOrder;
-    private BigDecimal rating;
+    private BigDecimal newRating;
+    private BigDecimal AvgRating;
 }

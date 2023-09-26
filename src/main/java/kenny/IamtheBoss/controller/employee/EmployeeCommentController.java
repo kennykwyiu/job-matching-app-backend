@@ -1,4 +1,4 @@
-package kenny.IamtheBoss.controller;
+package kenny.IamtheBoss.controller.employee;
 
 import jakarta.validation.Valid;
 import kenny.IamtheBoss.dto_factory.CommentFactory;
@@ -27,7 +27,7 @@ public class EmployeeCommentController {
     @PostMapping
     public CommentResponseDTO addComment(@Valid @RequestBody CommentRequestDTO requestDTO,
                                          SystemUser systemUser) throws ResourceNotFoundException, RepeatedRatingException {
-        Comment comment = commentFactory.toEntity(requestDTO);
+        Comment comment = commentFactory.toEntity(requestDTO, systemUser);
         commentService.addComment(comment);
         return commentFactory.toResponseDTO(comment);
     }

@@ -1,16 +1,17 @@
-package kenny.IamtheBoss.controller;
+package kenny.IamtheBoss.controller.employer;
 
 import jakarta.validation.Valid;
 import kenny.IamtheBoss.dto_factory.PostDTOFactory;
 import kenny.IamtheBoss.dto_request.PostRequestDTO;
 import kenny.IamtheBoss.dto_response.PostResponseDTO;
 import kenny.IamtheBoss.exception.ResourceNotFoundException;
+import kenny.IamtheBoss.exception.UnauthorizedOperationException;
 import kenny.IamtheBoss.model.JobOrder;
 import kenny.IamtheBoss.model.Post;
-import kenny.IamtheBoss.model.PostStatus;
 import kenny.IamtheBoss.model.SystemUser;
 import kenny.IamtheBoss.service.JobOrderService;
 import kenny.IamtheBoss.service.PostService;
+import kenny.IamtheBoss.service.ServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/employer/post")
 public class EmployerPostController {
-
     @Autowired
     private PostService postService;
 
@@ -53,8 +53,9 @@ public class EmployerPostController {
     @ResponseStatus(HttpStatus.CREATED) // ok
     // TODO: need to check is user a employer before create the job post
     public PostResponseDTO createPostByUserId(@Valid @RequestBody PostRequestDTO requestDTO,
-                                              SystemUser systemUser) throws ResourceNotFoundException {
-        Post post = postDTOFactory.toEntity(requestDTO);
+                                              SystemUser systemUser) throws ResourceNotFoundException, UnauthorizedOperationException {
+        Post post = postDTOFactory.toEntity(requestDTO, systemUser);
+        ServiceUtils.validateUserClaimOfEmployer(systemUser, post);
         postService.save(post);
         return postDTOFactory.toResponseDTO(post);
     }
@@ -63,8 +64,11 @@ public class EmployerPostController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public PostResponseDTO updatePostByPostId(@PathVariable(name = "postId") Long postId,
                                               @Valid @RequestBody PostRequestDTO requestDTO,
-                                              SystemUser systemUser) throws ResourceNotFoundException {
+                                              SystemUser systemUser) throws ResourceNotFoundException, UnauthorizedOperationException {
         Post post = postService.findById(postId);
+        SystemUser expectedUser = post.getSystemUser();
+        ServiceUtils.validateSystemUserForEntity(expectedUser, systemUser, post);
+
         Post updatedPost = postService.updatePost(post, requestDTO);
         return postDTOFactory.toResponseDTO(updatedPost);
     }
@@ -72,9 +76,12 @@ public class EmployerPostController {
     @PutMapping("/approval/{postId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public PostResponseDTO approveEmployeeApplication(@PathVariable(name = "postId") Long postId,
-                                              SystemUser systemUser) throws ResourceNotFoundException {
+                                              SystemUser systemUser) throws ResourceNotFoundException, UnauthorizedOperationException {
 
         Post post = postService.findById(postId);
+        SystemUser expectedUser = post.getSystemUser();
+        ServiceUtils.validateSystemUserForEntity(expectedUser, systemUser, post);
+
         JobOrder jobOrder = jobOrderService.findByPost(post);
         Post updatedPost = postService.approveEmployeeApplication(post, jobOrder);
         return postDTOFactory.toResponseDTO(updatedPost);
@@ -85,6 +92,7 @@ public class EmployerPostController {
     public PostResponseDTO reopenPost(@PathVariable(name = "postId") Long postId,
                                               SystemUser systemUser) throws ResourceNotFoundException {
         Post updatedPost = postService.reopenPost(postId);
+
         return postDTOFactory.toResponseDTO(updatedPost);
     }
 

@@ -8,7 +8,6 @@ import kenny.IamtheBoss.exception.ResourceNotFoundException;
 import kenny.IamtheBoss.firebase.FirebaseAuthService;
 import kenny.IamtheBoss.model.SystemUser;
 import kenny.IamtheBoss.model.UserClaim;
-import kenny.IamtheBoss.repository.AbstractBaseRepository;
 import kenny.IamtheBoss.repository.SystemUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

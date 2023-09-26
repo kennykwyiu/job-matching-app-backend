@@ -2,8 +2,6 @@ package kenny.IamtheBoss.service;
 
 import jakarta.transaction.Transactional;
 import kenny.IamtheBoss.model.JobOrderReview;
-import kenny.IamtheBoss.repository.AbstractBaseRepository;
-import kenny.IamtheBoss.repository.JobOrderRepository;
 import kenny.IamtheBoss.repository.JobOrderReviewRepository;
 import org.springframework.stereotype.Service;
 

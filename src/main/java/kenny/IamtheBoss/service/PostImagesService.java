@@ -2,9 +2,7 @@ package kenny.IamtheBoss.service;
 
 import jakarta.transaction.Transactional;
 import kenny.IamtheBoss.model.PostImages;
-import kenny.IamtheBoss.repository.AbstractBaseRepository;
 import kenny.IamtheBoss.repository.PostImagesRepository;
-import org.springframework.security.core.Transient;
 import org.springframework.stereotype.Service;
 
 @Service

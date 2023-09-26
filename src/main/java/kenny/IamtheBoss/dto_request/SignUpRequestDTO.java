@@ -3,7 +3,6 @@ package kenny.IamtheBoss.dto_request;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import kenny.IamtheBoss.model.UserClaim;
 import lombok.Builder;
 import lombok.Data;
 

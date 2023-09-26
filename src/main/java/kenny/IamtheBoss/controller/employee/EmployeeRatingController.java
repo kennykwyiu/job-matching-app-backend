@@ -1,4 +1,4 @@
-package kenny.IamtheBoss.controller;
+package kenny.IamtheBoss.controller.employee;
 
 import jakarta.validation.Valid;
 import kenny.IamtheBoss.dto_factory.RatingFactory;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/employer/rating")
-public class EmployerRatingController {
+@RequestMapping("/api/employee/rating")
+public class EmployeeRatingController {
     @Autowired
     private RatingService ratingService;
 
@@ -27,7 +27,7 @@ public class EmployerRatingController {
     @PostMapping // OK
     public RatingResponseDTO addRating(@Valid @RequestBody RatingRequestDTO requestDTO,
                                        SystemUser systemUser) throws ResourceNotFoundException, RepeatedRatingException {
-        Rating rating = ratingFactory.toEntity(requestDTO);
+        Rating rating = ratingFactory.toEntity(requestDTO, systemUser);
         ratingService.createRating(rating);
         return ratingFactory.toResponseDTO(rating);
     }

@@ -1,7 +1,6 @@
 package kenny.IamtheBoss.model;
 
 import jakarta.persistence.*;
-import kenny.IamtheBoss.service.AbstractBaseService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

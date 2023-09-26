@@ -24,6 +24,4 @@ public class RatingStatistics extends AbstractAuditableEntity<RatingStatistics, 
     @JoinColumn(name = "toUser_id")
     private SystemUser toUser;
 
-
-
 }

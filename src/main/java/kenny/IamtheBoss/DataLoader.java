@@ -2,6 +2,7 @@ package kenny.IamtheBoss;
 
 import jakarta.annotation.PostConstruct;
 import kenny.IamtheBoss.model.*;
+import kenny.IamtheBoss.repository.RatingRepository;
 import kenny.IamtheBoss.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,9 +27,12 @@ public class DataLoader {
     @Autowired
     private RatingService ratingService;
 
+    @Autowired
+    private RatingRepository ratingRepository;
+
 
     @PostConstruct
-    private void init() {
+    private void init() throws RepeatedRatingException {
         SystemUser systemUserAdmin = SystemUser.builder()
                 .email("Bob.head@example.com")
                 .fullName("Bob Head")
@@ -141,44 +145,34 @@ public class DataLoader {
                 .fromUser(systemUserEmployer)
                 .toUser(systemUserEmployee)
                 .jobOrder(jobOrder1)
-                .totalRatingQuantity(new BigDecimal("1"))
-                .rating(new BigDecimal("10"))
-                .averageRating(new BigDecimal("10"))
+                .rating(BigDecimal.TEN)
                 .build();
-        ratingService.save(rating1);
+
+        ratingService.createRating(rating1);
 
         Rating rating2 = Rating.builder()
                 .fromUser(systemUserEmployer)
                 .toUser(systemUserEmployee)
                 .jobOrder(jobOrder2)
-                .totalRatingQuantity(new BigDecimal("2"))
                 .rating(new BigDecimal("5"))
-                .averageRating(new BigDecimal("7.5"))
                 .build();
-        ratingService.save(rating2);
+        ratingService.createRating(rating2);
 
         Rating rating3 = Rating.builder()
                 .fromUser(systemUserEmployer)
                 .toUser(systemUserEmployee)
                 .jobOrder(jobOrder3)
-                .totalRatingQuantity(new BigDecimal("3"))
                 .rating(new BigDecimal("3"))
-                .averageRating(new BigDecimal("6"))
                 .build();
-        ratingService.save(rating3);
+        ratingService.createRating(rating3);
 
         Rating rating4 = Rating.builder()
                 .fromUser(systemUserEmployee)
                 .toUser(systemUserEmployer)
                 .jobOrder(jobOrder1)
-                .totalRatingQuantity(new BigDecimal("1"))
                 .rating(new BigDecimal("7"))
-                .averageRating(new BigDecimal("7"))
                 .build();
-        ratingService.save(rating4);
-
-
-
+        ratingService.createRating(rating4);
 
 
     }

@@ -3,9 +3,7 @@ package kenny.IamtheBoss.repository;
 import kenny.IamtheBoss.model.JobOrder;
 import kenny.IamtheBoss.model.Post;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 

@@ -26,21 +26,21 @@ public class PostDTOFactory {
     private CategoryFactory categoryFactory;
 
 
-    public PostResponseDTO toResponseDTO(PostRequestDTO requestDTO) throws ResourceNotFoundException {
-        Post post = toEntity(requestDTO);
-        SystemUser systemUser = post.getSystemUser();
-        SystemUserResponseDTO systemUserResponseDTO = systemUserFactory.toResponseDTO(systemUser);
-        CategoryResponseDTO categoryResponseDTO = categoryFactory.toResponseDTO(post.getCategory());
-        return PostResponseDTO.builder()
-                .postId(post.getId())
-                .title(post.getTitle())
-                .categoryResponseDTO(categoryResponseDTO)
-                .jobDescription(post.getJobDescription())
-                .systemUserResponseDTO(systemUserResponseDTO)
-                .status(post.getStatus().toString())
-                .build();
-
-    }
+//    public PostResponseDTO toResponseDTO(PostRequestDTO requestDTO) throws ResourceNotFoundException {
+//        Post post = toEntity(requestDTO, systemUser);
+//        SystemUser systemUser = post.getSystemUser();
+//        SystemUserResponseDTO systemUserResponseDTO = systemUserFactory.toResponseDTO(systemUser);
+//        CategoryResponseDTO categoryResponseDTO = categoryFactory.toResponseDTO(post.getCategory());
+//        return PostResponseDTO.builder()
+//                .postId(post.getId())
+//                .title(post.getTitle())
+//                .categoryResponseDTO(categoryResponseDTO)
+//                .jobDescription(post.getJobDescription())
+//                .systemUserResponseDTO(systemUserResponseDTO)
+//                .status(post.getStatus().toString())
+//                .build();
+//
+//    }
 
     public PostResponseDTO toResponseDTO(Post post) {
         SystemUser systemUser = post.getSystemUser();
@@ -57,21 +57,21 @@ public class PostDTOFactory {
                 .build();
     }
 
-    public PostResponseForJobOrderDTO toResponseForJobOrderDTO(PostRequestDTO requestDTO) throws ResourceNotFoundException {
-        Post post = toEntity(requestDTO);
-        SystemUser systemUser = post.getSystemUser();
-        SystemUserResponseJobOrderDTO systemUserFactoryResponseJobOrderDTO = systemUserFactory.toResponseJobOrderDTO(systemUser);
-        CategoryResponseDTO categoryResponseDTO = categoryFactory.toResponseDTO(post.getCategory());
-
-        return PostResponseForJobOrderDTO.builder()
-                .postId(post.getId())
-                .title(post.getTitle())
-                .categoryResponseDTO(categoryResponseDTO)
-                .jobDescription(post.getJobDescription())
-                .systemUserResponseJobOrderDTO(systemUserFactoryResponseJobOrderDTO)
-                .status(post.getStatus().toString())
-                .build();
-    }
+//    public PostResponseForJobOrderDTO toResponseForJobOrderDTO(PostRequestDTO requestDTO) throws ResourceNotFoundException {
+//        Post post = toEntity(requestDTO, systemUser);
+//        SystemUser systemUser = post.getSystemUser();
+//        SystemUserResponseJobOrderDTO systemUserFactoryResponseJobOrderDTO = systemUserFactory.toResponseJobOrderDTO(systemUser);
+//        CategoryResponseDTO categoryResponseDTO = categoryFactory.toResponseDTO(post.getCategory());
+//
+//        return PostResponseForJobOrderDTO.builder()
+//                .postId(post.getId())
+//                .title(post.getTitle())
+//                .categoryResponseDTO(categoryResponseDTO)
+//                .jobDescription(post.getJobDescription())
+//                .systemUserResponseJobOrderDTO(systemUserFactoryResponseJobOrderDTO)
+//                .status(post.getStatus().toString())
+//                .build();
+//    }
     public PostResponseForJobOrderDTO toResponseForJobOrderDTO(Post post) {
         SystemUser systemUser = post.getSystemUser();
         SystemUserResponseJobOrderDTO systemUserFactoryResponseJobOrderDTO = systemUserFactory.toResponseJobOrderDTO(systemUser);
@@ -90,9 +90,8 @@ public class PostDTOFactory {
 
 
 
-    public Post toEntity(PostRequestDTO requestDTO) throws ResourceNotFoundException {
-        Long systemUserId = requestDTO.getSystemUserId();
-        SystemUser systemUser = systemUserService.findById(systemUserId);
+    public Post toEntity(PostRequestDTO requestDTO, SystemUser systemUser) throws ResourceNotFoundException {
+
         Long categoryId = requestDTO.getCategoryId();
         Category category = categoryService.findById(categoryId);
         return Post.builder()

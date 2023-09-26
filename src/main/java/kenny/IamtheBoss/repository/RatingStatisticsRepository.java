@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RatingStatisticsRepository extends AbstractBaseRepository<RatingStatistics, Long>  {
-    RatingStatistics findBySystemUser(SystemUser toUser);
+    RatingStatistics ToUser(SystemUser toUser);
 }

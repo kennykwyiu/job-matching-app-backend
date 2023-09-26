@@ -3,7 +3,6 @@ package kenny.IamtheBoss.controller;
 import kenny.IamtheBoss.dto_factory.PostDTOFactory;
 import kenny.IamtheBoss.dto_response.PostResponseDTO;
 import kenny.IamtheBoss.exception.ResourceNotFoundException;
-import kenny.IamtheBoss.model.SystemUser;
 import kenny.IamtheBoss.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

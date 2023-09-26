@@ -17,6 +17,6 @@ public class RatingStatisticsService extends AbstractBaseService<RatingStatistic
     }
 
     public RatingStatistics findBySystemUser(SystemUser toUser) {
-        return repository.findBySystemUser(toUser);
+        return repository.ToUser(toUser);
     }
 }
